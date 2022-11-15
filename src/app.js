@@ -57,6 +57,11 @@ async function home() {
     await helpPrompt()
     home();
   }
+  else if (res === 'Exit') {
+    console.clear();
+    console.log('Goodbye!');
+    process.exit(0);
+  }
 }
 
 const chosenGame = function(games, continueGameId) {
