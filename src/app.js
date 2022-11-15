@@ -42,7 +42,7 @@ async function home() {
   if (res === 'Create Game') {
     let gameId = await createGamePrompt();
     let games = await getGames(API_TOKEN);
-    let gameStarted = new Game(playerId, chosenGame(games, gameId), 'home', bc);
+    let gameStarted = new Game(playerId, chosenGame(games, gameId), 'home', API_TOKEN, bc);
     gameStarted.startStream();
   }
   else if (res === 'Continue Game(s)') {
@@ -74,7 +74,7 @@ async function continueGame() {
   if (continueGameId === 'Back') {
     home();
   } else {
-    let gameStarted = new Game(playerId, chosenGame(games, continueGameId), 'back', bc);
+    let gameStarted = new Game(playerId, chosenGame(games, continueGameId), 'back', API_TOKEN, bc);
     gameStarted.startStream();
   }
 }

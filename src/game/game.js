@@ -5,11 +5,10 @@ import fetch from 'node-fetch';
 import { readStream } from '../utils/stream.js';
 import { asciiDif, unicodeChar } from '../utils/utils.js';
 import { askMovePrompt } from '../prompts/askMovePrompt.js';
-dotenv.config()
-const { API_TOKEN } = process.env;
 
 class Game {
-	constructor(playerId, game, event, bc) {
+	constructor(playerId, game, event, api_token, bc) {
+    this.api_token = api_token
 		this.playerId = playerId
 		this.gameId = game.gameId;
     this.side = game.side;
@@ -19,12 +18,12 @@ class Game {
     
     this.getRequestOptions = {
       method: 'GET',
-      headers: { Authorization: `Bearer ${API_TOKEN}`},
+      headers: { Authorization: `Bearer ${this.api_token}`},
     }
 
     this.postRequestOptions = {
       method: 'POST',
-      headers: { Authorization: `Bearer ${API_TOKEN}`}
+      headers: { Authorization: `Bearer ${this.api_token}`}
     }   
 
     this.stream = fetch(`https://lichess.org/api/board/game/stream/${this.gameId}` ,this.getRequestOptions);
@@ -266,7 +265,7 @@ async function getGameIds() {
 
 	const requestOptions = {
 	  method: 'GET',
-	  headers: { 'Authorization': `Bearer ${API_TOKEN}`}
+	  headers: { 'Authorization': `Bearer ${this.api_token}`}
 	}
 	const res = await fetch('https://lichess.org/api/account/playing', requestOptions)
 	const data = await res.json()
