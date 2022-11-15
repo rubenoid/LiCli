@@ -266,7 +266,7 @@ async function getGameIds() {
 
 	const requestOptions = {
 	  method: 'GET',
-	  headers: { 'Authorization': 'Bearer lip_udqYWRbiX3SBNPCJW8Jy'}
+	  headers: { 'Authorization': `Bearer ${API_TOKEN}`}
 	}
 	const res = await fetch('https://lichess.org/api/account/playing', requestOptions)
 	const data = await res.json()
