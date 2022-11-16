@@ -198,13 +198,13 @@ class Game {
       this.board[7][4] = ' ';
       this.board[7][0] = ' ';
     }
-    else if (move === "e7g7") {   // Black short castling
+    else if (move === "e8g8") {   // Black short castling
       this.board[0][6] = 'k';
       this.board[0][5] = 'r';
       this.board[0][4] = ' ';
       this.board[0][7] = ' ';
     }
-    else if (move === "e7c7") {   // Black long castling
+    else if (move === "e8c8") {   // Black long castling
       this.board[0][2] = 'k';
       this.board[0][4] = 'r';
       this.board[0][4] = ' ';
