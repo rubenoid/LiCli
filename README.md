@@ -31,4 +31,4 @@ To run:
 $ make run
 ```
 
-On first run you will be asked for a API Token. You can get one here: https://lichess.org/account/oauth/token (you need a LiChess account).
+On first run you will be asked for an API Token. You can get one here: https://lichess.org/account/oauth/token (you need a LiChess account).
