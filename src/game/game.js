@@ -71,16 +71,16 @@ class Game {
     let lastLastMove;
     if (typeof obj.state !== 'undefined') {  // init state
       let moves = obj.state.moves.split(" ");
-      console.log(moves);
-      console.log(moves.length);
-      lastMove = moves.at(-1);
-      lastLastMove = moves.at(-2);
-      if (moves[0] === '')
+      if (moves[0] === '') {
         this.ply = 0;
-      else
+      }
+      else {
+        lastMove = moves.at(-1);
+        lastLastMove = moves.at(-2);
         this.ply = moves.length;
-      while (moves.length > 0)
+        while (moves.length > 0)
         this.makeMoveUCI(moves.shift())
+      }
     }
     else if (typeof obj.moves !== 'undefined') { // pulling last move, werkt niet als zet wordt teruggenomen
       let moves = obj.moves.split(" ");
@@ -105,11 +105,10 @@ class Game {
     
     this.spinner.stop();
     console.clear();
-    //console.log("Type 'back' to go back\n");
 
-    if (lastMove)
-      // console.log('Last Move: ', lastMove, '(', Math.round(this.ply/2), ')')
+    if (lastMove) {
       process.stdout.write(`Last Move: ${lastMove}  (#${Math.round(this.ply/2)})\n`);
+    }
     if (this.side === 'white') {
       this.printBoardWhite();
     }
@@ -126,6 +125,7 @@ class Game {
     }
   };
 
+  // TODO: show go back option and go back to Home
   onComplete = () => console.log('The stream has completed');
 
   printBoardWhite = () => {
@@ -183,7 +183,7 @@ class Game {
   makeMoveUCI(move) {
     if (!move.length || move === 'undefined')
     {
-      console.log("error");
+      console.log("error");       // should never happen
       return;
     }
     else if (move === "e1g1") {   // White short castling
@@ -211,8 +211,8 @@ class Game {
       this.board[0][0] = ' ';
     }
     else {
-      let from = move.substring(0, 2); // e2
-      let to = move.substring(2, 4); // e4
+      let from = move.substring(0, 2);  // e2
+      let to = move.substring(2, 4);    // e4
     
       let rowFrom = asciiDif('8', from[1]);
       let rowTo = asciiDif('8', to[1]); 
@@ -220,8 +220,9 @@ class Game {
       let columnFrom = asciiDif(from[0], 'a');
       let columnTo = asciiDif(to[0], 'a');
     
-      if (move.length === 4)
+      if (move.length === 4) {
         this.board[rowTo][columnTo] = this.board[rowFrom][columnFrom];
+      }
       else if (move.length === 5) { // promotion
         if (rowTo === 0)  // white
           this.board[rowTo][columnTo] = move[4].toUpperCase();
@@ -232,7 +233,6 @@ class Game {
       this.board[rowFrom][columnFrom] = ' ' ;
     }
   };
-
 
 	initBoardFEN() {
 		this.board = [...Array(8)].map(e => Array(8).fill('x'));
